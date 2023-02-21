@@ -2,12 +2,13 @@ import React, {useState} from 'react';
 import classes from './Login.module.scss';
 import BlackInput from "../../UI/BlackInput/BlackInput";
 import BlackButton from "../../UI/BlackButton/BlackButton";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {loginUser} from "../../features/auth/authSlice";
 
 const Login = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [user, setUser] = useState({
         username: '',
         password: ''
@@ -20,7 +21,8 @@ const Login = () => {
             setUser({
                 username: '',
                 password: ''
-            })
+            });
+            navigate('/');
         } catch (e) {
             console.log(e);
         }

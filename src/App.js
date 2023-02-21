@@ -7,6 +7,8 @@ import {useEffect} from "react";
 import {checkAuth} from "./features/auth/authSlice";
 import Main from "./pages/Main/Main";
 import Header from "./components/Header/Header";
+import Profile from "./pages/Profile/Profile";
+import {getMoments} from "./features/moment/momentSlice";
 
 
 function App() {
@@ -14,6 +16,7 @@ function App() {
 
     useEffect(()=>{
         dispatch(checkAuth());
+        dispatch(getMoments())
     },[dispatch]);
 
     return (<div>
@@ -22,6 +25,7 @@ function App() {
             <Route path={'/'} element={<Main/>}/>
             <Route path={'/register'} element={<Register/>}/>
             <Route path={'/login'} element={<Login/>}/>
+            <Route path={'/profile'} element={<Profile/>}/>
         </Routes>
     </div>);
 }

@@ -1,19 +1,21 @@
 import React, {useState} from 'react';
 import BlackInput from "../../UI/BlackInput/BlackInput";
 import BlackButton from "../../UI/BlackButton/BlackButton";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import classes from './Register.module.scss';
 import {useDispatch} from "react-redux";
 import {registerUser} from "../../features/auth/authSlice";
+import InputFile from "../../UI/InputFile/InputFile";
 
 const Register = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [user, setUser] = useState({
         username: '',
         password: '',
         email: '',
-        fullName: ''
+        avatar:null
     });
     const handleSubmit = () => {
         try {
@@ -22,8 +24,9 @@ const Register = () => {
                 username: '',
                 password: '',
                 email: '',
-                fullName: ''
+                avatar:null
             });
+            navigate('/');
         }catch (e) {
             console.log(e)
         }
@@ -57,18 +60,6 @@ const Register = () => {
                     />
                 </div>
                 <div className={classes.label_input}>
-                    <label htmlFor="fullname">Full name</label>
-                    <BlackInput type="text"
-                                className={classes.form_input}
-                                placeholder="fullname"
-                                id="fullname"
-                                value={user.fullName}
-                                onChange={(e) => {
-                                    setUser({...user, fullName: e.target.value})
-                                }}
-                    />
-                </div>
-                <div className={classes.label_input}>
                     <label htmlFor="email">Email</label>
                     <BlackInput type="email"
                                 className={classes.form_input}
@@ -80,6 +71,7 @@ const Register = () => {
                                 }}
                     />
                 </div>
+                <InputFile setFile={(image)=>{setUser({...user,avatar: image})}}/>
                 <div className={classes.btn_group}>
                     <BlackButton onClick={handleSubmit}>Зарегистрироваться</BlackButton>
                     <Link to={"/login"} className={classes.btn_group_link}>Есть аккаунт?</Link>

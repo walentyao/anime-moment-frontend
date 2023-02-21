@@ -6,6 +6,7 @@
     color: white;
     font-size: 20px;
     transition: background-color ease-in 0.2s;
+    cursor: pointer;
 }
 .btn:hover{
     background-color: white;

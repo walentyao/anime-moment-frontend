@@ -1,0 +1,39 @@
+.card{
+    width: 260px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    margin-bottom: 10px;
+    background-color: white;
+    border-radius: 10px;
+}
+.item {
+    display: inline-block;
+    box-sizing: border-box; /* Изменения алгоритма расчета ширины и высоты элемента.*/
+}
+
+.card_image{
+    width: 100%;
+    border-radius: 15px;
+}
+
+.card_image_avatar{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.card_moment_info{
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    align-items: center;
+    padding: 5px;
+}
+
+.moment_info_text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

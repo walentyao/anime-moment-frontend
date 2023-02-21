@@ -1,13 +1,11 @@
 import React, {useState} from 'react';
-import classes from "./InputFile.module.css";
+import classes from "./InputFile.module.scss";
 import image from "../../images/file-image-regular.svg";
 
-const InputFile = () => {
+const InputFile = ({setFile}) => {
 
     const [upload, setUpload] = useState(false);
     const [imageUp, setImageUp] = useState('')
-
-    console.log('asdasd')
 
     function removeImage(event){
         setImageUp('');
@@ -19,6 +17,7 @@ const InputFile = () => {
         if (file) {
             setImageUp(URL.createObjectURL(file));
             setUpload(true);
+            setFile(file);
         }
     }
 
@@ -29,7 +28,6 @@ const InputFile = () => {
                 <input type="file" id="file" onChange={handlerUpload}/>
             </div>)
             : (<div className={classes.show_image} onClick={removeImage}>
-                <label className={classes.show_image_label}>Удалить</label>
                 <img src={imageUp} alt="asdsad" className={classes.show_image_image}/>
             </div>)
     );

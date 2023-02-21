@@ -5,12 +5,11 @@
     flex-direction: column;
     border: 1px dashed black;
     border-radius: 8px;
-    max-width: max-content;
     position: relative;
     opacity: 0.7;
 }
 .container:hover{
-    opacity: 1;
+    opacity: 0.9;
 }
 .container_image{
     position: absolute;
@@ -36,29 +35,15 @@
     cursor: pointer;
 }
 .show_image{
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     cursor: pointer;
-}
-.show_image_label{
-    top: auto;
-    left: auto;
-    position: absolute;
-    z-index: 1;
-    font-size: 34px;
-    font-weight: bold;
-}
 
-.show_image_image{
-    position: relative;
-    z-index: 2;
-    border-radius: 8px;
-}
-.show_image_image:hover{
-    opacity: 0.5;
-}
-.show_image_image:hover .show_image_label{
-    z-index: 10;
+    .show_image_image{
+        max-width: 600px;
+        max-height: 600px;
+        border-radius: 8px;
+        object-fit: cover;
+        &:hover{
+            opacity: 0.5;
+        }
+    }
 }

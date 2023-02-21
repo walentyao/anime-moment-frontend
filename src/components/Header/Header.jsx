@@ -19,8 +19,11 @@ const Header = () => {
             {location.pathname === '/' ? <SearchTool/> : null}
             <div className={classes.header_group_btn}>
                 {authUser.status ? [
-                        <div key={'username'} className={classes.header_user}>{authUser.username}</div>,
-                        <BlackButton onClick={()=> dispatch(logOut())} key={'logout'}>Выйти</BlackButton>] :
+                        <div key={'username'} className={classes.header_user} onClick={() => navigate("/profile")}>{authUser.username}</div>,
+                        <BlackButton onClick={()=> {
+                            dispatch(logOut());
+                            navigate('/');
+                        }} key={'logout'}>Выйти</BlackButton>] :
                     [
                         <BlackButton onClick={() => navigate("/register")} key={'reg'}>Регистрация</BlackButton>,
                         <BlackButton onClick={() => navigate("/login")} key={'log'}>Войти</BlackButton>]

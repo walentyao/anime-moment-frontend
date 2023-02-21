@@ -3,7 +3,6 @@ import axios from "axios";
 
 const initialState = {
     avatarUrl: null,
-    fullName: null,
     username: null,
     email: null,
     isLoading: false,
@@ -11,14 +10,19 @@ const initialState = {
     token: null,
 };
 
-export const registerUser = createAsyncThunk('auth/registerUser', async ({username, password, fullName, email}) => {
+export const registerUser = createAsyncThunk('auth/registerUser', async ({username, password, email, avatar}) => {
     try {
         const {data} = await axios.post('http://localhost:4444/auth/register/', {
-            username,
-            password,
-            fullName,
-            email
-        });
+                username,
+                password,
+                email,
+                picture:avatar
+            },
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
         if (data.token) {
             window.localStorage.setItem('token', data.token);
         }
@@ -48,14 +52,16 @@ export const checkAuth = createAsyncThunk('auth/me', async () => {
     try {
 
         const token = window.localStorage.getItem('token');
+        if (token) {
+            const {data} = await axios.get('http://localhost:4444/auth/me/', {headers: {Authorization: `Bearer ${token}`}}
+            );
+            return {...data, token};
+        }
 
-        const {data} = await axios.get('http://localhost:4444/auth/me/', {headers: {Authorization: `Bearer ${token}`}}
-        );
-        console.log(data)
-        return {...data, token};
     } catch (e) {
 
     }
+    throw new Error('Ошибка');
 });
 
 export const authSlice = createSlice({
@@ -67,7 +73,6 @@ export const authSlice = createSlice({
             state.avatarUrl = null;
             state.token = null;
             state.username = null;
-            state.fullName = null;
             state.email = null;
             state.isLoading = false;
             state.status = false;
@@ -81,7 +86,6 @@ export const authSlice = createSlice({
             state.avatarUrl = action.payload.avatarUrl;
             state.token = action.payload.token;
             state.username = action.payload.username;
-            state.fullName = action.payload.fullName;
             state.email = action.payload.email;
             state.isLoading = false;
             state.status = true;
@@ -93,7 +97,6 @@ export const authSlice = createSlice({
             state.avatarUrl = action.payload.avatarUrl;
             state.token = action.payload.token;
             state.username = action.payload.username;
-            state.fullName = action.payload.fullName;
             state.email = action.payload.email;
             state.isLoading = false;
             state.status = true;
@@ -102,7 +105,6 @@ export const authSlice = createSlice({
             state.avatarUrl = action.payload.avatarUrl;
             state.token = action.payload.token;
             state.username = action.payload.username;
-            state.fullName = action.payload.fullName;
             state.email = action.payload.email;
             state.isLoading = false;
             state.status = true;
